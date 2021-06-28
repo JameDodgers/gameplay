@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { FlatList, View } from "react-native";
 
+import { Background } from "../../components/Background";
 import { ButtonAdd } from "../../components/ButtonAdd";
 import { Profile } from "../../components/Profile";
 import { CategorySelect } from "../../components/CategorySelect";
@@ -48,7 +49,7 @@ export function Home() {
   }
 
   return (
-    <View>
+    <Background>
       <View style={styles.header}>
         <Profile />
         <ButtonAdd />
@@ -75,6 +76,6 @@ export function Home() {
           ItemSeparatorComponent={() => <ListDivider />}
         />
       </View>
-    </View>
+    </Background>
   )
 }
