@@ -12,8 +12,9 @@ import {
   Rajdhani_700Bold 
 } from '@expo-google-fonts/rajdhani'
 
-import { SignIn } from './src/screens/SignIn';
 import { Background } from './src/components/Background';
+
+import { Routes } from './src/routes';
 
 export default function App(){
   let [fontsLoaded] = useFonts({
@@ -34,7 +35,7 @@ export default function App(){
         backgroundColor="transparent"
         translucent
       />
-      <SignIn />
+      <Routes />
     </Background>
   )
 }
