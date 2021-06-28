@@ -25,6 +25,7 @@ export const styles = StyleSheet.create({
     borderColor: theme.colors.line,
   },
   icon: {
-
+    width: 24,
+    height: 18
   }
 })
