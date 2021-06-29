@@ -33,6 +33,10 @@ export function AppointmentCreate() {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedGuild, setSelectedGuild] = useState<GuildProps>({} as GuildProps);
 
+  function handleSelectedCategory(categoryId: string) {
+    setSelectedCategory(categoryId)
+  }
+
   function handleGuildSelect(guildSelect: GuildProps) {
     setSelectedGuild(guildSelect)
     setModalVisible(false)
@@ -65,7 +69,7 @@ export function AppointmentCreate() {
           <CategorySelect
             hasCheckBox
             selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
+            setSelectedCategory={handleSelectedCategory}
           />
           <View style={styles.form}>
             <RectButton onPress={handleModalOpening}>
