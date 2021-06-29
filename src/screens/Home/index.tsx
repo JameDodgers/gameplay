@@ -12,7 +12,7 @@ import { ListHeader } from "../../components/ListHeader";
 import { Appointment } from "../../components/Appointment";
 import { ListDivider } from "../../components/ListDivider";
 
-import { styles } from "./style";
+import { styles } from "./styles";
 
 export function Home() {
   const [selectedCategory, setSelectedCategory] = useState('')
@@ -43,7 +43,55 @@ export function Home() {
       category: '1',
       date: '22/06 às 20:40h',
       description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
-    }
+    },
+    {
+      id: '3',
+      guild: {
+        id: '1',
+        name: 'Lendários',
+        icon: null,
+        owner: true,
+      },
+      category: '1',
+      date: '22/06 às 20:40h',
+      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
+    },
+    {
+      id: '4',
+      guild: {
+        id: '1',
+        name: 'Lendários',
+        icon: null,
+        owner: true,
+      },
+      category: '1',
+      date: '22/06 às 20:40h',
+      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
+    },
+    {
+      id: '5',
+      guild: {
+        id: '1',
+        name: 'Lendários',
+        icon: null,
+        owner: true,
+      },
+      category: '1',
+      date: '22/06 às 20:40h',
+      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
+    },
+    {
+      id: '6',
+      guild: {
+        id: '1',
+        name: 'Lendários',
+        icon: null,
+        owner: true,
+      },
+      category: '1',
+      date: '22/06 às 20:40h',
+      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
+    },
   ]
 
   function handleSelectedCategory(categoryId: string) {
@@ -70,25 +118,24 @@ export function Home() {
         selectedCategory={selectedCategory}
         setSelectedCategory={handleSelectedCategory}
       />
-      <View style={styles.content}>
-        <ListHeader
-          title="Partidas agendadas"
-          subtitle="Total 6"
-        />
-        <FlatList
-          data={appointments}
-          style={styles.matches}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <Appointment
-              data={item}
-              onPress={handleAppointmentDetails}
-            />
-          )}
-          ItemSeparatorComponent={() => <ListDivider />}
-        />
-      </View>
+      <ListHeader
+        title="Partidas agendadas"
+        subtitle="Total 6"
+      />
+      <FlatList
+        data={appointments}
+        style={styles.matches}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={item => item.id}
+        contentContainerStyle={{ paddingBottom: 70 }}
+        renderItem={({ item }) => (
+          <Appointment
+            data={item}
+            onPress={handleAppointmentDetails}
+          />
+        )}
+        ItemSeparatorComponent={() => <ListDivider />}
+      />
     </Background>
   )
 }
