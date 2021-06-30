@@ -1,22 +1,28 @@
 import React from 'react';
+
 import { StatusBar } from 'react-native';
+
 import AppLoading from 'expo-app-loading';
+
 import { useFonts } from 'expo-font';
-import { 
-  Inter_400Regular, 
+
+import { AuthProvider } from './src/hooks/auth'
+
+import {
+  Inter_400Regular,
   Inter_500Medium
 } from '@expo-google-fonts/inter'
 
-import { 
-  Rajdhani_500Medium, 
-  Rajdhani_700Bold 
+import {
+  Rajdhani_500Medium,
+  Rajdhani_700Bold
 } from '@expo-google-fonts/rajdhani'
 
 import { Background } from './src/components/Background';
 
 import { Routes } from './src/routes';
 
-export default function App(){
+export default function App() {
   let [fontsLoaded] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
@@ -28,14 +34,16 @@ export default function App(){
     return <AppLoading />;
   }
 
-  return(
+  return (
     <Background>
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
         translucent
       />
-      <Routes />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </Background>
   )
 }
