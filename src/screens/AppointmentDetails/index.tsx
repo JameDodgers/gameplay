@@ -16,7 +16,7 @@ import { Member } from '../../components/Member';
 import { Header } from '../../components/Header';
 import { ButtonIcon } from '../../components/ButtonIcon';
 
-import { Fontisto} from '@expo/vector-icons'
+import { Fontisto } from '@expo/vector-icons'
 
 import BannerImg from '../../assets/banner.png'
 
@@ -41,7 +41,7 @@ export function AppointmentDetails() {
   ]
   return (
     <Background>
-      <Header 
+      <Header
         title="Detalhes"
         action={
           <BorderlessButton>
@@ -53,7 +53,7 @@ export function AppointmentDetails() {
           </BorderlessButton>
         }
       />
-      <ImageBackground 
+      <ImageBackground
         style={styles.banner}
         source={BannerImg}
       >
@@ -66,7 +66,7 @@ export function AppointmentDetails() {
           </Text>
         </View>
       </ImageBackground>
-      <ListHeader 
+      <ListHeader
         title="Jogadores"
         subtitle="Total 3"
       />
@@ -74,12 +74,12 @@ export function AppointmentDetails() {
         data={members}
         style={styles.members}
         keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <Member 
+        renderItem={({ item }) => (
+          <Member
             data={item}
           />
         )}
-        ItemSeparatorComponent={() => <ListDivider />}
+        ItemSeparatorComponent={() => <ListDivider isCentered />}
       />
       <View style={styles.footer}>
         <ButtonIcon title="Entrar na partida" />
