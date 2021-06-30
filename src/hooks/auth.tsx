@@ -1,11 +1,16 @@
 import React, {
+  ReactNode,
   createContext,
   useContext,
   useState,
-  ReactNode
+  useEffect
 } from "react";
 
 import * as AuthSession from 'expo-auth-session'
+
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import { COLLECTION_USER } from '../configs/storage'
 
 const { REDIRECT_URI } = process.env;
 const { SCOPE } = process.env;
@@ -36,7 +41,8 @@ interface AuthProviderProps {
 
 type AuthorizationResponse = AuthSession.AuthSessionResult & {
   params: {
-    access_token: string;
+    access_token?: string;
+    error?: string;
   }
 }
 
@@ -55,30 +61,47 @@ function AuthProvider({ children }: AuthProviderProps) {
       const { type, params } = await AuthSession
         .startAsync({ authUrl }) as AuthorizationResponse;
 
-      if (type === 'success') {
+      if (type === 'success' && !params.error) {
         discordApi.defaults.headers.authorization = `Bearer ${params.access_token}`;
 
-        const { data: userData } = await discordApi.get('/users/@me');
+        const { data } = await discordApi.get('/users/@me');
 
-        const firstName = userData.username.split(' ')[0];
+        const firstName = data.username.split(' ')[0];
 
-        userData.avatar = `${CDN_IMAGE}/avatars/${userData.id}/${userData.avatar}.png`
+        data.avatar = `${CDN_IMAGE}/avatars/${data.id}/${data.avatar}.png`
 
-        setUser({
-          ...userData,
+        const userData = {
+          ...data,
           firstName,
           token: params.access_token
-        })
+        }
 
-        setLoading(false);
-      } else {
-        setLoading(false);
+        await AsyncStorage.setItem(COLLECTION_USER, JSON.stringify(userData))
+
+        setUser(userData)
       }
 
     } catch (error) {
       throw new Error('Não foi possível autenticar');
+    } finally {
+      setLoading(false);
     }
   }
+
+  async function loadStorageData() {
+    const storage = await AsyncStorage.getItem(COLLECTION_USER)
+
+    if (storage) {
+      const userLogged = JSON.parse(storage) as User;
+      discordApi.defaults.headers.authorization = `Bearer ${userLogged.token}`
+
+      setUser(userLogged)
+    }
+  }
+
+  useEffect(() => {
+    loadStorageData();
+  }, [])
 
   return (
     <AuthContext.Provider value={{
