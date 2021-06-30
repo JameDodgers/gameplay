@@ -23,7 +23,7 @@ import { Background } from '../../components/Background';
 
 import { Guilds } from '../Guilds';
 
-import { GuildProps } from '../../components/Guild';
+import { Guild, GuildProps } from '../../components/Guild';
 
 import { styles } from './styles';
 import { theme } from '../../global/styles/theme';
@@ -76,7 +76,7 @@ export function AppointmentCreate() {
               <View style={styles.select}>
                 {
                   selectedGuild.icon
-                    ? <GuildIcon />
+                    ? <GuildIcon guildId={selectedGuild.id} iconId={selectedGuild.icon} />
                     : <View style={styles.image} />
                 }
                 <View style={styles.selectBody}>
