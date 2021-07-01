@@ -36,8 +36,8 @@ export function Home() {
       : setSelectedCategory(categoryId)
   }
 
-  function handleAppointmentDetails() {
-    navigation.navigate('AppointmentDetails')
+  function handleAppointmentDetails(appointment: AppointmentProps) {
+    navigation.navigate('AppointmentDetails', { appointment })
   }
 
   function handleAppointmentCreate() {
@@ -74,24 +74,32 @@ export function Home() {
         selectedCategory={selectedCategory}
         setSelectedCategory={handleSelectedCategory}
       />
-      <ListHeader
-        title="Partidas agendadas"
-        subtitle="Total 6"
-      />
-      <FlatList
-        data={appointments}
-        style={styles.matches}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={item => item.id}
-        contentContainerStyle={{ paddingBottom: 70 }}
-        renderItem={({ item }) => (
-          <Appointment
-            data={item}
-            onPress={handleAppointmentDetails}
-          />
-        )}
-        ItemSeparatorComponent={() => <ListDivider />}
-      />
+      {
+        loading ? (
+          <Load />
+        ) : (
+          <>
+            <ListHeader
+              title="Partidas Agendadas"
+              subtitle={`Total: ${appointments.length}`}
+            />
+            <FlatList
+              data={appointments}
+              style={styles.matches}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={item => item.id}
+              contentContainerStyle={{ paddingBottom: 70 }}
+              renderItem={({ item }) => (
+                <Appointment
+                  data={item}
+                  onPress={() => handleAppointmentDetails(item)}
+                />
+              )}
+              ItemSeparatorComponent={() => <ListDivider />}
+            />
+          </>
+        )
+      }
     </Background>
   )
 }

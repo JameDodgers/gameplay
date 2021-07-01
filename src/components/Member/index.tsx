@@ -4,16 +4,17 @@ import {
   View,
   Text
 } from 'react-native';
+
 import { theme } from '../../global/styles/theme';
 
 import { Avatar } from '../Avatar'
 
 import { styles } from './styles';
 
-interface MemberProps {
+export interface MemberProps {
   id: string;
   username: string;
-  avatarUrl: string;
+  avatar_url: string;
   status: string;
 }
 
@@ -27,7 +28,7 @@ export function Member({ data }: Props) {
 
   return (
     <View style={styles.container}>
-      <Avatar urlImage={data.avatarUrl} />
+      <Avatar urlImage={data.avatar_url} />
       <View>
         <Text style={styles.title}>
           {data.username}
