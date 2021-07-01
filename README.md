@@ -6,14 +6,14 @@ Gameplay é um aplicativo que permite que jogadores agendem suas partidas em um 
 
 - [React Native](http://facebook.github.io/react-native/)
 - [Expo](https://docs.expo.io/)
-- [React Native](https://reactnative.dev/docs/linking)
+- [React Native Linking](https://reactnative.dev/docs/linking)
 - [React Native Share](https://reactnative.dev/docs/share)
 - [React Native Async Storage](https://github.com/react-native-async-storage/async-storage)
 - [React Navigation](https://reactnavigation.org/)
-- [Axios](https://github.com/axios/axios)
 - [Expo Svg](https://docs.expo.io/versions/latest/sdk/svg/)
 - [Expo Auth Session](https://docs.expo.io/versions/latest/sdk/auth-session/)
 - [Expo Fonts](https://docs.expo.io/guides/using-custom-fonts/)
+- [Axios](https://github.com/axios/axios)
 - [dotenv](https://www.npmjs.com/package/dotenv)
   - [babel-plugin-inline-dotenv](https://github.com/brysgo/babel-plugin-inline-dotenv)
 
