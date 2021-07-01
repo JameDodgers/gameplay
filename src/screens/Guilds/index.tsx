@@ -7,7 +7,7 @@ import {
 
 import { Guild, GuildProps } from '../../components/Guild';
 import { ListDivider } from '../../components/ListDivider';
-import Load from '../../components/Load';
+import { Load } from '../../components/Load';
 
 import { discordApi } from '../../services/api';
 

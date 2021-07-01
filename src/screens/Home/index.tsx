@@ -1,98 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
-import { useNavigation } from "@react-navigation/native";
+import {
+  FlatList,
+  View
+} from "react-native";
 
-import { FlatList, View } from "react-native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { COLLECTION_APPOINTMENTS } from "../../configs/storage";
 
 import { Background } from "../../components/Background";
 import { ButtonAdd } from "../../components/ButtonAdd";
 import { Profile } from "../../components/Profile";
 import { CategorySelect } from "../../components/CategorySelect";
 import { ListHeader } from "../../components/ListHeader";
-import { Appointment } from "../../components/Appointment";
+import { Appointment, AppointmentProps } from "../../components/Appointment";
 import { ListDivider } from "../../components/ListDivider";
+import { Load } from "../../components/Load";
 
 import { styles } from "./styles";
 
 export function Home() {
-  const [selectedCategory, setSelectedCategory] = useState('')
-
   const navigation = useNavigation()
 
-  const appointments = [
-    {
-      id: '1',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true,
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
-    },
-    {
-      id: '2',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true,
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
-    },
-    {
-      id: '3',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true,
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
-    },
-    {
-      id: '4',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true,
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
-    },
-    {
-      id: '5',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true,
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
-    },
-    {
-      id: '6',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true,
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10',
-    },
-  ]
+  const [selectedCategory, setSelectedCategory] = useState('')
+  const [appointments, setAppointments] = useState<AppointmentProps[]>([]);
+  const [loading, setLoading] = useState(true)
+
 
   function handleSelectedCategory(categoryId: string) {
     categoryId === selectedCategory
@@ -107,6 +43,26 @@ export function Home() {
   function handleAppointmentCreate() {
     navigation.navigate('AppointmentCreate')
   }
+
+  async function loadAppointments() {
+    const storage = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
+
+    const appointments: AppointmentProps[] = storage ? JSON.parse(storage) : [];
+
+    if (selectedCategory) {
+      setAppointments(appointments.filter(item => item.category === selectedCategory))
+    } else {
+      setAppointments(appointments)
+    }
+
+    setLoading(false);
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      loadAppointments();
+    }, [selectedCategory])
+  );
 
   return (
     <Background>

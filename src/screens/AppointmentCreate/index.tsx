@@ -67,10 +67,14 @@ export function AppointmentCreate() {
   }
 
   async function handleSave() {
+    if (!selectedCategory) {
+      return
+    }
+
     const newAppointment = {
       id: uuid.v4(),
-      selectedGuild,
-      selectedCategory,
+      guild: selectedGuild,
+      category: selectedCategory,
       date: `${day}/${month} às ${hour}:${minute}`,
       description
     };

@@ -10,7 +10,7 @@ import { theme } from '../../global/styles/theme';
 
 import styles from './styles';
 
-const Component = () => {
+export function Load() {
   return (
     <View style={styles.container}>
       <ActivityIndicator
@@ -20,5 +20,3 @@ const Component = () => {
     </View>
   );
 }
-
-export default Component;
