@@ -14,6 +14,8 @@ import { useRoute } from '@react-navigation/native';
 
 import { BorderlessButton } from 'react-native-gesture-handler';
 
+import * as Linking from 'expo-linking';
+
 import { Background } from '../../components/Background';
 import { ListHeader } from '../../components/ListHeader';
 import { ListDivider } from '../../components/ListDivider';
@@ -66,9 +68,6 @@ export function AppointmentDetails() {
   }
 
   function handleShareInvitation() {
-    console.log(appointment.guild.name)
-    console.log(widget.instant_invite)
-
     const message = Platform.OS === 'ios'
       ? `Junte-se a ${appointment.guild.name}`
       : widget.instant_invite;
@@ -77,6 +76,10 @@ export function AppointmentDetails() {
       message,
       url: widget.instant_invite
     });
+  }
+
+  function handleOpenGuild() {
+    Linking.openURL(widget.instant_invite);
   }
 
   useEffect(() => {
@@ -136,9 +139,15 @@ export function AppointmentDetails() {
           </>
         )
       }
-      <View style={styles.footer}>
-        <ButtonIcon title="Entrar na partida" />
-      </View>
+      {
+        appointment.guild.owner &&
+        <View style={styles.footer}>
+          <ButtonIcon
+            title="Entrar na partida"
+            onPress={handleOpenGuild}
+          />
+        </View>
+      }
     </Background>
   );
 }
