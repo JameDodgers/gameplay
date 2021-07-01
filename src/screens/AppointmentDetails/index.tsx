@@ -5,7 +5,9 @@ import {
   Text,
   ImageBackground,
   FlatList,
-  Alert
+  Share,
+  Alert,
+  Platform
 } from 'react-native';
 
 import { useRoute } from '@react-navigation/native';
@@ -63,6 +65,20 @@ export function AppointmentDetails() {
     }
   }
 
+  function handleShareInvitation() {
+    console.log(appointment.guild.name)
+    console.log(widget.instant_invite)
+
+    const message = Platform.OS === 'ios'
+      ? `Junte-se a ${appointment.guild.name}`
+      : widget.instant_invite;
+
+    Share.share({
+      message,
+      url: widget.instant_invite
+    });
+  }
+
   useEffect(() => {
     fetchGuildWidget()
   }, [])
@@ -72,7 +88,10 @@ export function AppointmentDetails() {
       <Header
         title="Detalhes"
         action={
-          <BorderlessButton>
+          appointment.guild.owner &&
+          <BorderlessButton
+            onPress={handleShareInvitation}
+          >
             <Fontisto
               name="share"
               size={24}
